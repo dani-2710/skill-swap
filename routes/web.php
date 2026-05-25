@@ -3,6 +3,7 @@
 use App\Controllers\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\ChatController;
+use App\Controllers\AdminController;
 use App\Controllers\SkillController;
 use App\Controllers\ProfileController;
 use App\Controllers\SessionController;
@@ -24,6 +25,13 @@ $router->get('/dashboard', [HomeController::class, 'dashboard']);
 $router->get('/skills', [SkillController::class, 'index']);
 $router->get('/skills/add', [SkillController::class, 'add']);
 $router->post('/skills/add', [SkillController::class, 'add']);
+$router->get('/skills/{id}/edit', [SkillController::class, 'edit']);
+$router->post('/skills/{id}/edit', [SkillController::class, 'edit']);
+$router->post('/skills/{id}/delete', [SkillController::class, 'delete']);
+
+$router->get('/admin', [AdminController::class, 'index']);
+$router->post('/admin/users/role', [AdminController::class, 'updateUserRole']);
+$router->post('/admin/skills/restore', [AdminController::class, 'restoreSkill']);
 
 $router->get('/profile', [ProfileController::class, 'index']);
 $router->get('/profile/edit', [ProfileController::class, 'edit']);

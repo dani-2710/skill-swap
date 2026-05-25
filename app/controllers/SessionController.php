@@ -18,7 +18,13 @@ class SessionController extends Controller {
         // Find skill
         $skillModel = new \App\Models\Skill();
         $db = \App\Core\Database::getInstance()->getConnection();
-        $stmt = $db->prepare("SELECT s.*, u.full_name, u.id as provider_id FROM skills s JOIN users u ON s.user_id = u.id WHERE s.id = :id");
+        $stmt = $db->prepare("
+            SELECT s.*, u.full_name, u.id as provider_id
+            FROM skills s
+            JOIN users u ON s.user_id = u.id
+            WHERE s.id = :id
+              AND s.status = 'active'
+        ");
         $stmt->bindParam(':id', $skillId);
         $stmt->execute();
         $skill = $stmt->fetch();

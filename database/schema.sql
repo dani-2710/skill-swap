@@ -35,6 +35,8 @@ CREATE TABLE IF NOT EXISTS skills (
     name VARCHAR(100) NOT NULL,
     description TEXT,
     type ENUM('teach', 'learn') NOT NULL,
+    status ENUM('active', 'deleted') DEFAULT 'active',
+    deleted_at TIMESTAMP NULL DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
@@ -102,3 +104,9 @@ INSERT INTO categories (name, description) VALUES
 ('Music', 'Playing instruments, singing, and music production.'),
 ('Mathematics', 'Algebra, calculus, and logic.'),
 ('Marketing', 'Digital marketing, SEO, and business strategy.');
+
+-- Default admin account for fresh installs.
+-- Email: admin@skillswap.local
+-- Password: Admin@123
+INSERT INTO users (full_name, username, email, password, role) VALUES
+('SkillSwap Admin', 'admin', 'admin@skillswap.local', '$2y$10$2PJinxt6EgQY0MPo6JAmhO..aGBSF/jCvV26YcEnwd6Uxbwe8Ki8.', 'admin');

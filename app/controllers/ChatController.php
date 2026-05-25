@@ -106,13 +106,13 @@ $sessionTimestamp = $sessionDateTime ? $sessionDateTime->getTimestamp() : false;
 
         foreach ($messages as $msg) {
             $isMe = $msg['sender_id'] == $userId;
-            $class = $isMe ? 'bg-primary text-white self-end rounded-br-none' : 'bg-white border border-gray-200 text-gray-800 self-start rounded-bl-none';
+            $class = $isMe ? 'is-me' : 'is-other';
             $time = date('H:i', strtotime($msg['created_at']));
-            echo '<div class="max-w-[75%] flex flex-col ' . ($isMe ? 'items-end' : 'items-start') . ' mb-4 fade-in">';
-            echo '  <div class="px-4 py-2 rounded-2xl shadow-sm ' . $class . '">';
-            echo '      <p class="text-sm">' . htmlspecialchars($msg['message']) . '</p>';
+            echo '<div class="message-row ' . $class . ' fade-in">';
+            echo '  <div class="message-bubble">';
+            echo        htmlspecialchars($msg['message']);
             echo '  </div>';
-            echo '  <span class="text-xs text-gray-400 mt-1 px-2">' . $time . '</span>';
+            echo '  <span class="message-time">' . $time . '</span>';
             echo '</div>';
         }
     }
